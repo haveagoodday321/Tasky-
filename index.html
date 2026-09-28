@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Tasky</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="stylesheet" href="css/analytics.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <link rel="stylesheet" href="css/animations.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+<div class="logo">
+
+<h1>Tasky</h1>
+
+<p>Your Personal Productivity Assistant</p>
+
+</div>
+
+<button id="themeBtn">
+
+🌙
+
+</button>
+
+</header>
+
+<!-- ========================= -->
+<!-- Dashboard -->
+<!-- ========================= -->
+
+<section
+id="dashboardPage"
+class="page active">
+
+<div class="card welcome-card">
+
+<h2>
+
+👋 Welcome Back
+
+</h2>
+
+<p id="todayDate"></p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+🔥 Streak
+
+</h3>
+
+<h1 id="streak">
+
+0 Days
+
+</h1>
+
+</div>
+
+<div class="card dashboard-progress-card">
+
+    <h3>
+        🎯 Today's Progress
+    </h3>
+
+    <div class="progress-summary">
+
+        <div class="progress-stat">
+            <strong id="completedCount">0</strong>
+            <span>Completed</span>
+        </div>
+
+        <div class="progress-stat">
+            <strong id="remainingCount">0</strong>
+            <span>Remaining</span>
+        </div>
+
+    </div>
+
+    <div class="progress-track">
+
+        <div
+            id="progressBar"
+            class="progress-fill">
+        </div>
+
+    </div>
+    
+      <p class="progress-percentage">
+        <strong id="todayPercent">0%</strong>
+        complete
+    </p>
+
+</div>
+
+<div class="card">
+    
+<h3>
+
+🎯 Today's Focus
+
+</h3>
+
+<ul id="focusList">
+
+<li>
+
+Nothing planned yet.
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+⏰ Upcoming Deadlines
+
+</h3>
+
+<ul id="upcomingList">
+
+<li>
+
+No upcoming deadlines.
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+⚡ Quick Add Task
+
+</h3>
+
+<input
+id="quickTaskInput"
+type="text"
+placeholder="Enter a task...">
+
+<button id="quickAddBtn">
+
+Add Task
+
+</button>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- Tasks -->
+<!-- ========================= -->
+
+<section
+id="tasksPage"
+class="page">
+
+<h2>
+
+Tasks
+
+</h2>
+
+<div class="card task-create-card">
+
+    <div class="task-create-head">
+        <div>
+            <h3>📝 Create a Task</h3>
+            <p>Add it quickly or open the full editor for more control.</p>
+        </div>
+    </div>
+
+    <input
+        id="taskInput"
+        type="text"
+        placeholder="What needs to get done?"
+        autocomplete="off">
+
+    <div class="task-create-row">
+        <input id="deadline" type="date" aria-label="Task deadline">
+
+        <select id="priority" aria-label="Task priority">
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+        </select>
+    </div>
+
+    <div class="task-create-actions">
+        <button id="addTaskBtn" type="button">⚡ Quick Add</button>
+        <button id="openTaskEditorBtn" class="secondary-btn" type="button">✨ Advanced</button>
+    </div>
+
+</div>
+
+<div class="card">
+
+<div class="card task-controls">
+
+    <input
+    id="searchInput"
+    type="text"
+    placeholder="🔍 Search tasks...">
+
+
+    <div class="filter-row">
+
+        <select
+        id="statusFilter">
+
+            <option value="all">
+                All Tasks
+            </option>
+
+            <option value="active">
+                Active
+            </option>
+
+            <option value="completed">
+                Completed
+            </option>
+
+        </select>
+
+
+        <select
+        id="priorityFilter">
+
+            <option value="all">
+                All Priorities
+            </option>
+
+            <option value="high">
+                🔴 High
+            </option>
+
+            <option value="medium">
+                🟠 Medium
+            </option>
+
+            <option value="low">
+                🟢 Low
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <select
+    id="sortTasks">
+
+        <option value="newest">
+            ↕️ Newest First
+        </option>
+
+        <option value="oldest">
+            ↕️ Oldest First
+        </option>
+
+        <option value="deadline">
+            📅 Deadline
+        </option>
+
+        <option value="priority">
+            🔥 Priority
+        </option>
+
+    </select>
+
+</div>
+
+</div>
+
+<ul id="taskList">
+
+</ul>
+
+</section>
+
+<!-- ========================= -->
+<!-- Calendar -->
+<!-- ========================= -->
+
+<section
+id="calendarPage"
+class="page">
+
+    <div class="page-header">
+
+        <h2>
+            📅 Calendar
+        </h2>
+
+    </div>
+
+    <div class="card calendar-card">
+
+        <div class="calendar-header">
+
+            <button
+            id="prevMonthBtn"
+            type="button"
+            aria-label="Previous month">
+
+                ←
+
+            </button>
+
+            <h3 id="calendarMonth">
+
+                Loading...
+
+            </h3>
+
+            <button
+            id="nextMonthBtn"
+            type="button"
+            aria-label="Next month">
+
+                →
+
+            </button>
+
+        </div>
+
+        <div class="calendar-weekdays">
+
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+
+        </div>
+
+        <div
+        id="calendar"
+        class="calendar-grid">
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            Tasks for Selected Day
+        </h3>
+
+        <ul id="selectedDateTasks">
+
+            <li>
+                Select a date to view tasks.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- Analytics -->
+<!-- ========================= -->
+
+<section
+id="analyticsPage"
+class="page">
+
+    <div class="page-header">
+
+        <h2>
+            📊 Analytics
+        </h2>
+
+        <p>
+            See your productivity progress.
+        </p>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="card stat-card">
+
+            <h3>
+                Total Tasks
+            </h3>
+
+            <p
+            id="totalTasksStat"
+            class="stat-number">
+
+                0
+
+            </p>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>
+                Completed
+            </h3>
+
+            <p
+            id="completedTasksStat"
+            class="stat-number">
+
+                0
+
+            </p>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>
+                Pending
+            </h3>
+
+            <p
+            id="pendingTasksStat"
+            class="stat-number">
+
+                0
+
+            </p>
+
+        </div>
+
+        <div class="card stat-card">
+
+            <h3>
+                Completion Rate
+            </h3>
+
+            <p
+            id="completionRateStat"
+            class="stat-number">
+
+                0%
+
+            </p>
+
+        </div>
+
+    </div>
+
+   <div class="card">
+
+    <h3>
+        Weekly Progress
+    </h3>
+
+    <p id="weeklySummary">
+        Complete tasks to start seeing your progress.
+    </p>
+
+</div>
+
+
+<!-- ========================================
+     PRIORITY BREAKDOWN
+======================================== -->
+
+<div class="card analytics-card">
+
+    <h3>
+        🔥 Priority Breakdown
+    </h3>
+
+    <div class="analytics-priority-grid">
+
+        <div class="analytics-priority-item">
+
+            <span class="analytics-priority-icon">
+                🔴
+            </span>
+
+            <div>
+                <strong id="highPriorityStat">0</strong>
+                <span>High Priority</span>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-priority-item">
+
+            <span class="analytics-priority-icon">
+                🟠
+            </span>
+
+            <div>
+                <strong id="mediumPriorityStat">0</strong>
+                <span>Medium Priority</span>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-priority-item">
+
+            <span class="analytics-priority-icon">
+                🟢
+            </span>
+
+            <div>
+                <strong id="lowPriorityStat">0</strong>
+                <span>Low Priority</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================
+     DEADLINE OVERVIEW
+======================================== -->
+
+<div class="card analytics-card">
+
+    <h3>
+        📅 Deadline Overview
+    </h3>
+
+    <div class="analytics-deadline-grid">
+
+        <div class="analytics-deadline-item">
+
+            <span>🔴</span>
+
+            <div>
+                <strong id="overdueTasksStat">0</strong>
+                <span>Overdue</span>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-deadline-item">
+
+            <span>🟢</span>
+
+            <div>
+                <strong id="todayTasksStat">0</strong>
+                <span>Due Today</span>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-deadline-item">
+
+            <span>🔵</span>
+
+            <div>
+                <strong id="upcomingTasksStat">0</strong>
+                <span>Upcoming</span>
+            </div>
+
+        </div>
+
+
+        <div class="analytics-deadline-item">
+
+            <span>⚪</span>
+
+            <div>
+                <strong id="noDeadlineTasksStat">0</strong>
+                <span>No Deadline</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================
+     PRODUCTIVITY INSIGHT
+======================================== -->
+
+<div class="card analytics-card">
+
+    <h3>
+        🧠 Productivity Insight
+    </h3>
+
+    <div class="analytics-insight">
+
+        <div class="analytics-insight-score">
+
+            <strong id="productivityScore">0%</strong>
+
+            <span>
+                Overall Completion
+            </span>
+
+        </div>
+
+        <p id="productivityInsight">
+            Add some tasks to start tracking your productivity.
+        </p>
+
+    </div>
+
+</div>
+    
+<!-- ========================================
+     7-DAY PRODUCTIVITY HISTORY
+======================================== -->
+
+<div class="card analytics-card">
+
+    <h3>
+        📈 7-Day Productivity
+    </h3>
+
+    <div id="weeklyChart" class="weekly-chart">
+
+        <p class="analytics-empty">
+            Complete tasks to build your productivity history.
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- Settings -->
+<!-- ========================= -->
+
+<section
+id="settingsPage"
+class="page">
+
+    <div class="page-header">
+
+        <h2>
+            ⚙️ Settings
+        </h2>
+
+        <p>
+            Customize your Tasky experience.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            Appearance
+        </h3>
+
+        <p>
+            Switch between light and dark mode.
+        </p>
+
+        <button
+    id="settingsThemeBtn"
+    type="button">
+
+    🌙 Toggle Theme
+
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            Your Data
+        </h3>
+
+        <p>
+            Export or reset your locally saved data.
+        </p>
+
+        <button
+        id="exportBtn"
+        type="button">
+
+            📤 Export Backup
+
+        </button>
+        <input
+    type="file"
+    id="importFile"
+    accept=".json,application/json"
+    hidden>
+
+<button
+    id="importBtn"
+    type="button">
+
+    📥 Import Backup
+
+</button>
+
+        <button
+        id="resetAppBtn"
+        type="button"
+        class="danger-btn">
+
+            🗑️ Reset Tasky
+
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            About Tasky
+        </h3>
+
+        <p>
+            Tasky v2.1.0
+        </p>
+
+        <p>
+            Your Personal Productivity Assistant
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- Task Editor Modal -->
+<!-- ========================= -->
+<div id="taskEditorModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-task-editor></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="taskEditorTitle">
+        <div class="modal-header">
+            <div>
+                <span class="modal-eyebrow">TASK EDITOR</span>
+                <h2 id="taskEditorTitle">Create Task</h2>
+                <p id="taskEditorSubtitle">Give your task the details Tasky needs to plan it properly.</p>
+            </div>
+            <button type="button" class="modal-close" data-close-task-editor aria-label="Close task editor">×</button>
+        </div>
+
+        <form id="taskEditorForm">
+            <input type="hidden" id="editorTaskId">
+
+            <label for="editorTaskText">Task name</label>
+            <input id="editorTaskText" type="text" placeholder="e.g. Study Mathematics" required maxlength="120" autocomplete="off">
+
+            <label for="editorDescription">Description <span>(optional)</span></label>
+            <textarea id="editorDescription" rows="3" maxlength="500" placeholder="Add useful details or instructions..."></textarea>
+
+            <div class="editor-grid">
+                <div>
+                    <label for="editorPriority">Priority</label>
+                    <select id="editorPriority">
+                        <option>Low</option>
+                        <option selected>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="editorDeadline">Deadline</label>
+                    <input id="editorDeadline" type="date">
+                </div>
+            </div>
+
+            <div class="editor-grid">
+                <div>
+                    <label for="editorDuration">Estimated time</label>
+                    <select id="editorDuration">
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60" selected>1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                        <option value="180">3+ hours</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="editorCategory">Category</label>
+                    <select id="editorCategory">
+                        <option value="Personal">Personal</option>
+                        <option value="School">School</option>
+                        <option value="Work">Work</option>
+                        <option value="Fitness">Fitness</option>
+                        <option value="Project">Project</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="editorReminder">Reminder</label>
+            <select id="editorReminder">
+                <option value="none">No reminder</option>
+                <option value="10">10 minutes before</option>
+                <option value="30">30 minutes before</option>
+                <option value="60">1 hour before</option>
+                <option value="1440">1 day before</option>
+            </select>
+
+            <label for="editorRecurrence">Repeat</label>
+            <select id="editorRecurrence">
+                <option value="none">Does not repeat</option>
+                <option value="daily">Every day</option>
+                <option value="weekdays">Weekdays</option>
+                <option value="weekly">Every week</option>
+            </select>
+
+            <label for="editorSubtasks">Subtasks <span>(one per line)</span></label>
+            <textarea id="editorSubtasks" rows="4" maxlength="1000" placeholder="Research topic
+Write first draft
+Review and submit"></textarea>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" data-close-task-editor>Cancel</button>
+                <button type="submit" id="saveTaskEditorBtn">Create Task</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- Bottom Navigation -->
+<!-- ========================= -->
+
+<nav
+class="bottom-nav"
+aria-label="Main navigation">
+
+    <button
+    class="navBtn active"
+    type="button"
+    data-page="dashboardPage">
+
+        <span class="nav-icon">
+            🏠
+        </span>
+
+        <span class="nav-label">
+            Home
+        </span>
+
+    </button>
+
+    <button
+    class="navBtn"
+    type="button"
+    data-page="tasksPage">
+
+        <span class="nav-icon">
+            📝
+        </span>
+
+        <span class="nav-label">
+            Tasks
+        </span>
+
+    </button>
+
+    <button
+    class="navBtn"
+    type="button"
+    data-page="calendarPage">
+
+        <span class="nav-icon">
+            📅
+        </span>
+
+        <span class="nav-label">
+            Calendar
+        </span>
+
+    </button>
+
+    <button
+    class="navBtn"
+    type="button"
+    data-page="analyticsPage">
+
+        <span class="nav-icon">
+            📊
+        </span>
+
+        <span class="nav-label">
+            Stats
+        </span>
+
+    </button>
+
+    <button
+    class="navBtn"
+    type="button"
+    data-page="settingsPage">
+
+        <span class="nav-icon">
+            ⚙️
+        </span>
+
+        <span class="nav-label">
+            Settings
+        </span>
+
+    </button>
+
+</nav>
+
+<!-- ========================= -->
+<!-- JavaScript -->
+<!-- ========================= -->
+
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+
+<script src="js/tasks.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/analytics.js"></script>
+
+<script src="js/achievements.js"></script>
+<script src="js/notifications.js"></script>
+
+<script src="js/theme.js"></script>
+<script src="js/export.js"></script>
+<script src="js/settings.js"></script>
+
+<script src="js/premium.js"></script>
+<script src="js/sections.js"></script>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

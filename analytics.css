@@ -1,0 +1,274 @@
+/* ========================================
+   7-DAY PRODUCTIVITY CHART
+======================================== */
+
+.weekly-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 180px;
+    padding: 20px 10px 10px;
+}
+
+.weekly-chart-day {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+}
+
+.weekly-chart-bar {
+    width: 100%;
+    max-width: 42px;
+    min-height: 5px;
+    background: linear-gradient(
+        180deg,
+        var(--primary),
+        var(--secondary)
+    );
+    border-radius: 10px 10px 4px 4px;
+    transition:
+        height 0.3s ease,
+        transform 0.2s ease;
+}
+
+.weekly-chart-bar:hover {
+    transform: scaleY(1.05);
+}
+
+.weekly-chart-day strong {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.weekly-chart-day span {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.analytics-empty {
+    width: 100%;
+    text-align: center;
+    color: var(--text-secondary);
+    margin: auto;
+}
+
+
+/* ========================================
+   LIGHT THEME
+======================================== */
+
+body.light-theme .weekly-chart-day strong {
+    color: var(--text);
+}
+
+body.light-theme .weekly-chart-day span {
+    color: var(--text-secondary);
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .weekly-chart {
+        gap: 5px;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .weekly-chart-bar {
+        max-width: 30px;
+    }
+
+    .weekly-chart-day span {
+        font-size: 10px;
+    }
+
+    .weekly-chart-day strong {
+        font-size: 12px;
+    }
+}
+
+/* ========================================
+   ANALYTICS CARDS
+======================================== */
+
+.analytics-card {
+    margin-top: 20px;
+}
+
+.analytics-card h3 {
+    margin-bottom: 18px;
+}
+
+
+/* ========================================
+   PRIORITY BREAKDOWN
+======================================== */
+
+.analytics-priority-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: 14px;
+}
+
+.analytics-priority-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.analytics-priority-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.analytics-priority-item strong {
+    display: block;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--text);
+}
+
+.analytics-priority-item span:not(
+    .analytics-priority-icon
+) {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+
+/* ========================================
+   DEADLINE OVERVIEW
+======================================== */
+
+.analytics-deadline-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 14px;
+}
+
+.analytics-deadline-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.analytics-deadline-item > span {
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.analytics-deadline-item strong {
+    display: block;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--text);
+}
+
+.analytics-deadline-item span:not(
+    :first-child
+) {
+    color: var(--text-secondary);
+}
+
+.analytics-deadline-item div span {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+
+/* ========================================
+   PRODUCTIVITY INSIGHT
+======================================== */
+
+.analytics-insight {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.analytics-insight-score {
+    min-width: 130px;
+    padding: 18px;
+    text-align: center;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.analytics-insight-score strong {
+    display: block;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--primary);
+}
+
+.analytics-insight-score span {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.analytics-insight p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   MOBILE ANALYTICS
+======================================== */
+
+@media (max-width: 700px) {
+
+    .analytics-priority-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-deadline-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .analytics-insight {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .analytics-insight-score {
+        min-width: 0;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .analytics-deadline-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
